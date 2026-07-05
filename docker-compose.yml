@@ -1,0 +1,22 @@
+services:
+  frontend:
+    build: ./client
+    ports:
+      - "3000:80"
+  backend:
+    build: ./server
+    ports:
+      - "5000:5000"
+    environment:
+       MONGO_URI: ${MONGO_URI}
+       PORT: ${PORT}
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:7
+    volumes:
+      - blog-mongo-data:/data/db
+
+volumes:
+  blog-mongo-data:
