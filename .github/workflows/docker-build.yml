@@ -58,7 +58,11 @@ jobs:
           script: |
             cd ~/blog-app
 
-            echo "Pulling latest images..."
+            export IMAGE_TAG=${{ github.sha }}
+
+            echo "Deploying image tag: $IMAGE_TAG"
+
+            echo "Pulling images..."
             sudo docker compose pull
 
             echo "Starting containers..."
@@ -70,6 +74,5 @@ jobs:
             echo "Checking backend health..."
             curl --fail http://localhost:5000/api/health
 
-            echo "Deployment successful!"
-            
+            echo "Deployment successful!"            
           
