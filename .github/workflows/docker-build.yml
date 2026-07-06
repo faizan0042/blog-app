@@ -57,5 +57,19 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             cd ~/blog-app
+
+            echo "Pulling latest images..."
             sudo docker compose pull
+
+            echo "Starting containers..."
             sudo docker compose up -d --remove-orphans
+
+            echo "Waiting for application..."
+            sleep 10
+
+            echo "Checking backend health..."
+            curl --fail http://localhost:5000/api/health
+
+            echo "Deployment successful!"
+            
+          
