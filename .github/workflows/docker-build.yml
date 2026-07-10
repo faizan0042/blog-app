@@ -58,15 +58,13 @@ jobs:
           script: |
             cd ~/blog-app
 
-            export IMAGE_TAG=${{ github.sha }}
-
-            echo "Deploying image tag: $IMAGE_TAG"
+            echo "Deploying image tag: ${{ github.sha }}"
 
             echo "Pulling images..."
-            sudo docker compose pull
+            sudo IMAGE_TAG=${{ github.sha }} docker compose pull
 
             echo "Starting containers..."
-            sudo docker compose up -d --remove-orphans
+            sudo IMAGE_TAG=${{ github.sha }} docker compose up -d --remove-orphans
 
             echo "Waiting for application..."
             sleep 10
@@ -74,5 +72,5 @@ jobs:
             echo "Checking backend health..."
             curl --fail http://localhost:5000/api/health
 
-            echo "Deployment successful!"            
+            echo "Deployment successful!"          
           
