@@ -1,0 +1,67 @@
+backend:
+  replicaCount: 2
+
+  image:
+    repository: faizan0042/blog-backend
+    tag: 2f474daa60c907ca53273f261bd731ed0b605019
+
+  containerPort: 5000
+
+  service:
+    type: ClusterIP
+    port: 5000
+    targetPort: 5000
+
+  config:
+    port: "5000"
+    nodeEnv: "production"
+
+  secrets:
+    create: false
+    existingSecret: backend-secret
+    
+
+mongodb:
+
+  replicaCount: 1
+
+  image:
+    repository: mongo
+    tag: "7"
+
+  containerPort: 27017
+  
+  service:
+    type: ClusterIP
+    port: 27017
+    targetPort: 27017
+
+  persistence:
+    claimName: mongodb-pvc 
+    accessMode: ReadWriteOnce
+    storage: 2Gi
+
+frontend:
+
+  replicaCount: 2
+
+  image:
+    repository: faizan0042/blog-frontend
+    tag: 2f474daa60c907ca53273f261bd731ed0b605019
+
+  containerPort: 80
+
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 80
+
+ingress:
+  enabled: true
+  className: nginx
+  host: blog.local
+
+mockESO:
+  enabled: false
+  secretStoreName: aws-secrets-manager
+  secretStoreKind: SecretStore

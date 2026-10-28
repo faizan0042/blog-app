@@ -8,6 +8,12 @@ yarn-error.log*
 
 # Environment variables
 .env
+.env.*
+!.env.example
+
+# Private keys
+*.pem
+*.key
 
 # OS files
 .DS_Store
@@ -17,3 +23,13 @@ Thumbs.db
 /dist
 /build
 
+# Terraform
+**/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+crash.*.log
+
+# Local infrastructure troubleshooting output
+terraform/node-console.txt

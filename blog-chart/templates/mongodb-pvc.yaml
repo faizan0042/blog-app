@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+
+metadata:
+  name: {{ .Values.mongodb.persistence.claimName }}
+
+spec:
+  storageClassName: gp2
+
+  accessModes:
+    - {{ .Values.mongodb.persistence.accessMode }}
+
+  resources:
+    requests:
+      storage: {{ .Values.mongodb.persistence.storage }}

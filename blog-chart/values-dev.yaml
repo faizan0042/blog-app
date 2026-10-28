@@ -1,0 +1,16 @@
+backend:
+  replicaCount: 1
+
+frontend:
+  replicaCount: 1
+
+mongodb:
+  replicaCount: 1
+
+ingress:
+  host: blog.dev
+
+mockESO:
+  enabled: true
+  secretStoreName: mock-secret-store
+  secretStoreKind: SecretStore
